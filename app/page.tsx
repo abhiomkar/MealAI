@@ -1,5 +1,40 @@
+import { PrismaClient } from '@prisma/client';
 
-export default function Home() {
+export default async function Home() {
+  const prisma = new PrismaClient();
+
+  const meals = await prisma.meal.findMany();
+  let meal = meals[0];
+
+  if (!meal) {
+    meal = await prisma.meal.create({
+      data: {
+        familyId: 'omkar',
+        ingredients: [
+          'Mutton',
+          'Chicken',
+          'Prawns',
+          'Korameenu Fish',
+          'Spinach',
+          'Cauliflower',
+          'Cabbage',
+          'Potato',
+          'Egg plant',
+          'Okra',
+          'Egg plant',
+          'Bitter guard',
+          'Freash Beans Haricot',
+          'Fresh Beans Broad',
+          'Freash Beans Cluster',
+          'Ivy guard',
+          'Ridge guard',
+          'Paneer',
+          'Soya Chunks',
+        ],
+      },
+    });
+  }
+
   return (
     <main className="flex flex-col items-center">
       <h1 className="p-4 max-w-5xl w-full font-extrabold tracking-tight text-2xl">Meal AI</h1>
@@ -34,6 +69,10 @@ export default function Home() {
             <div className="">Mutton - High in protein and low in fat, mutton is a great source of essential vitamins and minerals and can help boost the immune system.</div>
           </li>
         </ul>
+      </div>
+
+      <div className="max-w-5xl py-8 px-4 text-sm">
+        <h4><div className="font-medium flex pb-1">Ingredients considered:</div> {meal.ingredients.join(', ')}.</h4>
       </div>
     </main>
   )
