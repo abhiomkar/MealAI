@@ -10,7 +10,26 @@ datasource db {
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
-model Meal {
-  familyId    String   @id
+model User {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
   ingredients String[]
+  mealPlans   MealPlans[]
+}
+
+model MealPlans {
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now())
+  weekPlan  MealDayPlan[]
+  User      User?         @relation(fields: [userId], references: [id])
+  userId    Int?
+}
+
+model MealDayPlan {
+  id          Int        @id @default(autoincrement())
+  weekday     String
+  ingredient  String
+  description String
+  MealPlans   MealPlans? @relation(fields: [mealPlansId], references: [id])
+  mealPlansId Int?
 }
