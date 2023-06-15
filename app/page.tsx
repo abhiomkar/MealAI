@@ -30,11 +30,11 @@ export default async function Home() {
         </div>
       </div>
       <div className="z-10 w-full max-w-5xl items-center text-sm lg:flex">
-        <ul className="px-4 w-full border-b border-gray-300 pb-6 dark:border-neutral-800 dark:bg-zinc-800/30 lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+        <ul className="px-4 w-full lg:border">
           {mealPlans ? (
             mealPlans.weekPlan.map((meal) => (
               <li className="pb-4 gap-4 flex" key={meal.id}>
-                <div className="text-base rounded-full bg-black text-white font-medium h-8 w-8 flex-shrink-0 mt-4 inline-flex align-middle justify-center pt-1">{meal.weekday[0]}</div>
+                <div className="text-base rounded-full bg-black dark:bg-gray-50 text-white dark:text-black font-medium h-8 w-8 flex-shrink-0 mt-4 inline-flex align-middle justify-center pt-1">{meal.weekday[0]}</div>
                 <div className=""><div className="font-medium flex pb-1">{meal.ingredient}</div> {meal.description}</div>
               </li>
             ))
