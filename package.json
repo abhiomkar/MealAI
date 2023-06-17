@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vercel env pull .env.local && prisma generate && next dev",
     "build": "prisma generate && dotenv -e .env.local prisma db push && next build",
-    "start": "next start",
+    "start": "npm run build && next start",
     "lint": "next lint",
     "dbPush": "dotenv -e .env.local prisma db push",
     "dbStudio": "dotenv -e .env.local prisma studio"
