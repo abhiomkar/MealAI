@@ -11,6 +11,7 @@
     "dbStudio": "dotenv -e .env.local prisma studio"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^4.47.2",
     "@clerk/nextjs": "^4.21.1",
     "@prisma/client": "^4.15.0",
     "@types/node": "20.3.0",
