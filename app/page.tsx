@@ -1,19 +1,25 @@
-import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import { redirect } from 'next/navigation'
-import { currentUser } from '@clerk/nextjs';
+import { currentUser, UserButton } from '@clerk/nextjs';
 
 export default async function Home() {
-  if (await currentUser()) {
+  const user = await currentUser();
+  if (user) {
     redirect('/meal');
   }
 
   return (
     <main className="flex flex-col items-center">
-      <div className="flex w-full items-center">
+      <div className="flex w-full items-center justify-between">
         <h1 className="p-4 text-base font-medium tracking-tighter">
-          Meal AI
+          <Link href="/">Meal AI</Link>
         </h1>
+        <div className="p-4 text-sm font-medium">
+          {user ?
+            <UserButton afterSignOutUrl="/"/> :
+            <Link href="/sign-in">Sign in</Link>
+          }
+        </div>
       </div>
       <div className="z-10 w-full max-w-xl items-center text-sm flex flex-col">
         <h2 className="text-3xl font-extrabold tracking-tighter lg::text-8xl md:text-5xl pb-12 pt-12">

@@ -5,5 +5,5 @@ export default authMiddleware({
 });
 
 export const config = {
-  matcher: ['/meal', '/'],
+  matcher: ["/", "/meal"],
 };
