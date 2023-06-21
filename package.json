@@ -13,6 +13,7 @@
   "dependencies": {
     "@clerk/clerk-js": "^4.47.2",
     "@clerk/nextjs": "^4.21.1",
+    "@clerk/themes": "^1.7.5",
     "@prisma/client": "^4.15.0",
     "@types/node": "20.3.0",
     "@types/react": "18.2.11",

@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
+  id          String         @id
   createdAt   DateTime    @default(now())
   ingredients String[]
   mealPlans   MealPlans[]
@@ -22,7 +22,7 @@ model MealPlans {
   createdAt DateTime      @default(now())
   weekPlan  MealDayPlan[]
   User      User?         @relation(fields: [userId], references: [id])
-  userId    Int?
+  userId    String?
 }
 
 model MealDayPlan {
