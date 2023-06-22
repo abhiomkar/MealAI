@@ -8,7 +8,8 @@
     "start": "npm run build && next start",
     "lint": "next lint",
     "dbPush": "dotenv -e .env.local prisma db push",
-    "dbStudio": "dotenv -e .env.local prisma studio"
+    "dbStudio": "dotenv -e .env.local prisma studio",
+    "env": "vercel env pull .env.local"
   },
   "dependencies": {
     "@clerk/clerk-js": "^4.47.2",

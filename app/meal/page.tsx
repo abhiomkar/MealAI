@@ -5,10 +5,10 @@ import {redirect} from 'next/navigation';
 
 const prisma = new PrismaClient();
 
-async function getUserMealPlans(userId: string) {
+async function getUserMealPlans(email: string) {
   return prisma.user.findUnique({
     where: {
-      id: userId,
+      email: email,
     },
     include: {
       mealPlans: {
@@ -26,11 +26,11 @@ async function getUserMealPlans(userId: string) {
 
 export default async function Home() {
   const cUser = await currentUser();
-  if (!cUser) {
+  if (!cUser?.emailAddresses?.[0]?.emailAddress) {
     redirect('/sign-in');
   }
 
-  let [user] = await Promise.all([getUserMealPlans(cUser.id)]);
+  let [user] = await Promise.all([getUserMealPlans(cUser.emailAddresses[0].emailAddress)]);
   const weekPlan = user?.mealPlans?.[0].weekPlan;
   const ingredients = user?.ingredients;
 
