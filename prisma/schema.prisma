@@ -11,8 +11,8 @@ datasource db {
 }
 
 model User {
-  id          String         @id
-  email       String         @unique
+  id          String      @id
+  email       String      @unique
   createdAt   DateTime    @default(now())
   ingredients String[]
   mealPlans   MealPlans[]
