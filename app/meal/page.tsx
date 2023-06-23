@@ -1,7 +1,7 @@
 import { PrismaClient, User, MealPlans, Prisma } from "@prisma/client";
 import Link from "next/link";
-import { currentUser, UserButton } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/auth-options";
 
 const prisma = new PrismaClient();
 
@@ -25,14 +25,13 @@ async function getUserMealPlans(email: string) {
 }
 
 export default async function Home() {
-  const cUser = await currentUser();
-  if (!cUser?.emailAddresses?.[0]?.emailAddress) {
-    redirect("/sign-in");
+  const session = await getServerSession(authOptions);
+  const { name, email } = session?.user || {};
+  if (!email) {
+    return <div>User not logged in.</div>;
   }
 
-  let [user] = await Promise.all([
-    getUserMealPlans(cUser.emailAddresses[0].emailAddress),
-  ]);
+  const user = await getUserMealPlans(email);
   const weekPlan = user?.mealPlans?.[0].weekPlan;
   const ingredients = user?.ingredients;
 
@@ -42,13 +41,7 @@ export default async function Home() {
         <h1 className="p-4 text-base font-medium tracking-tighter">
           <Link href="/">Meal AI</Link>
         </h1>
-        <div className="p-4 text-sm font-medium">
-          {cUser ? (
-            <UserButton afterSignOutUrl="/" />
-          ) : (
-            <Link href="/sign-in">Sign in</Link>
-          )}
-        </div>
+        <div className="p-4 text-sm font-medium">Hello, {name}!</div>
       </div>
       <div className="z-10 w-full max-w-xl items-center text-sm lg:flex">
         <ul className="w-full px-4">

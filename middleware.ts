@@ -1,7 +1,3 @@
-import { authMiddleware } from "@clerk/nextjs";
+export { default } from "next-auth/middleware"
 
-export default authMiddleware();
-
-export const config = {
-  matcher: ["/", "/meal"],
-};
+export const config = { matcher: ["/meal"] }
