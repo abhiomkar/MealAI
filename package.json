@@ -5,11 +5,12 @@
   "scripts": {
     "dev": "vercel env pull .env.local && prisma generate && next dev",
     "build": "prisma generate && dotenv -e .env.local prisma db push && next build",
-    "start": "npm run build && next start",
+    "start": "pnpm run build && next start",
     "lint": "next lint",
     "dbPush": "dotenv -e .env.local prisma db push",
     "dbStudio": "dotenv -e .env.local prisma studio",
-    "env": "vercel env pull .env.local"
+    "env": "vercel env pull .env.local",
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
