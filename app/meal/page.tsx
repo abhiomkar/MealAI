@@ -1,4 +1,4 @@
-import { PrismaClient, User, MealPlans, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
