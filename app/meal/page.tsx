@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Ingredient, PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
@@ -11,6 +11,7 @@ async function getUserMealPlans(email: string) {
       email: email,
     },
     include: {
+      ingredients: true,
       mealPlans: {
         include: {
           weekPlan: true,
@@ -32,7 +33,7 @@ export default async function Home() {
   }
 
   const user = await getUserMealPlans(email);
-  const weekPlan = user?.mealPlans?.[0].weekPlan;
+  const weekPlan = user?.mealPlans?.[0]?.weekPlan;
   const ingredients = user?.ingredients;
 
   return (
@@ -70,7 +71,12 @@ export default async function Home() {
               <div className="flex pb-1 font-medium">
                 Ingredients considered:
               </div>
-              <div>{ingredients.join(", ")}.</div>
+              <div>
+                {ingredients
+                  .map((ingredient: Ingredient) => ingredient.name)
+                  .join(", ")}
+                .
+              </div>
             </div>
           ) : null}
         </h4>

@@ -1,18 +1,25 @@
-import { PrismaClient} from "@prisma/client";
-import { NextResponse } from 'next/server';
+import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-  const {ingredients, email} = await request.json();
-  const updateUser = await prisma.user.update({
+  const { ingredient, email } = await request.json();
+  const { id } = await prisma.user.findUniqueOrThrow({
     where: {
       email: email,
     },
-    data: {
-      ingredients: ingredients,
+    select: {
+      id: true,
     },
   });
 
-  return NextResponse.json({ok: true});
+  await prisma.ingredient.create({
+    data: {
+      name: ingredient,
+      userId: id,
+    },
+  });
+
+  return NextResponse.json({ ok: true });
 }

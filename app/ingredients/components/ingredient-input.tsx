@@ -1,17 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { KeyboardEvent } from "react";
 
-export function IngredientInput({
-  ingredients,
-  email,
-}: {
-  ingredients: string[];
-  email: string;
-}) {
+export function IngredientInput({ email }: { email: string }) {
   const router = useRouter();
 
-  const handleIngredientInputKeyDown = (event: KeyboardEvent) => {
+  const handleIngredientInputKeyDown = (
+    event: KeyboardEvent<HTMLInputElement>
+  ) => {
     if (!(event.target instanceof HTMLInputElement)) return;
 
     if (event.key === "Enter") {
@@ -34,7 +31,7 @@ export function IngredientInput({
     await fetch("/ingredients/api", {
       method: "POST",
       body: JSON.stringify({
-        ingredients: [...ingredients, ingredient],
+        ingredient: ingredient,
         email: email,
       }),
     });

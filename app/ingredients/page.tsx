@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Ingredient } from "@prisma/client";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
@@ -11,6 +11,9 @@ async function getUserMealPlans(email: string) {
     where: {
       email: email,
     },
+    include: {
+      ingredients: true,
+    },
   });
 }
 
@@ -22,7 +25,7 @@ export default async function Home() {
   }
 
   const user = await getUserMealPlans(email);
-  const ingredients = user?.ingredients;
+  const ingredients = user?.ingredients || [];
 
   return (
     <main className="flex flex-col items-center">
@@ -33,13 +36,13 @@ export default async function Home() {
         <div className="p-4 text-sm font-medium">Hello, {name}!</div>
       </div>
       <div className="z-10 w-full max-w-2xl items-center text-sm">
-        <IngredientInput ingredients={ingredients} email={email} />
+        <IngredientInput email={email} />
         <ul className="flex w-full flex-wrap gap-2">
           {ingredients ? (
-            ingredients.map((ingredient: string) => (
-              <li className="inline-flex" key={ingredient}>
+            ingredients.map((ingredient: Ingredient) => (
+              <li className="inline-flex" key={ingredient.name}>
                 <div className="inline-flex rounded-full border border-gray-500 px-4 py-2">
-                  {ingredient}
+                  {ingredient.name}
                 </div>
               </li>
             ))
