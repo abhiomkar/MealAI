@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai-edge";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/prisma/prisma";
 
-const prisma = new PrismaClient();
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });

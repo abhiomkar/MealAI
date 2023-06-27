@@ -3,8 +3,7 @@ import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
 import { MealPlanGenerator } from "@/app/meal/meal-plan-generator";
-
-const prisma = new PrismaClient();
+import prisma from "@/app/prisma/prisma";
 
 async function getUserMealPlans(email: string) {
   return prisma.user.findUnique({

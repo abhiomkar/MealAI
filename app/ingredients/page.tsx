@@ -1,11 +1,10 @@
-import { PrismaClient, Ingredient } from "@prisma/client";
+import { Ingredient } from "@prisma/client";
+import prisma from "@/app/prisma/prisma";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
 import { IngredientInput } from "@/app/ingredients/components/ingredient-input";
 import { RemoveIngredientButton } from "@/app/ingredients/components/remove-ingredient-button";
-
-const prisma = new PrismaClient();
 
 async function getUserMealPlans(email: string) {
   return prisma.user.findUnique({
