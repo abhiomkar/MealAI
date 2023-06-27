@@ -25,7 +25,7 @@ export function MealPlanGenerator({ userId }: { userId: number }) {
       </button>
       <div className="mt-4 grid grid-cols-1 gap-2">
         {mealPlan.split("\n").map((line) => (
-          <div>{line}</div>
+          <div key={line}>{line}</div>
         ))}
       </div>
       {mealPlan && (
