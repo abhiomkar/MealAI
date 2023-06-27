@@ -2,6 +2,7 @@ import { Ingredient, PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
+import { MealPlanGenerator } from "@/app/meal/meal-plan-generator";
 
 const prisma = new PrismaClient();
 
@@ -33,6 +34,7 @@ export default async function Home() {
   }
 
   const user = await getUserMealPlans(email);
+  const userId = user?.id || 0;
   const weekPlan = user?.mealPlans?.[0]?.weekPlan;
   const ingredients = user?.ingredients;
 
@@ -44,6 +46,7 @@ export default async function Home() {
         </h1>
         <div className="p-4 text-sm font-medium">Hello, {name}!</div>
       </div>
+      <MealPlanGenerator userId={userId} />
       <div className="z-10 w-full max-w-xl items-center text-sm lg:flex">
         <ul className="w-full px-4">
           {weekPlan ? (

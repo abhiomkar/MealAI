@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { KeyboardEvent } from "react";
 
-export function IngredientInput({ email }: { email: string }) {
+export function IngredientInput({ userId }: { userId: number }) {
   const router = useRouter();
 
   const handleIngredientInputKeyDown = (
@@ -32,7 +32,7 @@ export function IngredientInput({ email }: { email: string }) {
       method: "POST",
       body: JSON.stringify({
         ingredient: ingredient,
-        email: email,
+        userId: userId,
       }),
     });
     router.refresh();

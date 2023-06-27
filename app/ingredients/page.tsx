@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
 import { IngredientInput } from "@/app/ingredients/components/ingredient-input";
+import { RemoveIngredientButton } from "@/app/ingredients/components/remove-ingredient-button";
 
 const prisma = new PrismaClient();
 
@@ -25,6 +26,7 @@ export default async function Home() {
   }
 
   const user = await getUserMealPlans(email);
+  const userId = user?.id || 0;
   const ingredients = user?.ingredients || [];
 
   return (
@@ -36,14 +38,21 @@ export default async function Home() {
         <div className="p-4 text-sm font-medium">Hello, {name}!</div>
       </div>
       <div className="z-10 w-full max-w-2xl items-center text-sm">
-        <IngredientInput email={email} />
-        <ul className="flex w-full flex-wrap gap-2">
+        <div>
+          <IngredientInput userId={userId} />
+        </div>
+        <ul className="grid w-full grid-cols-1 divide-y divide-gray-500">
           {ingredients ? (
             ingredients.map((ingredient: Ingredient) => (
-              <li className="inline-flex" key={ingredient.name}>
-                <div className="inline-flex rounded-full border border-gray-500 px-4 py-2">
-                  {ingredient.name}
-                </div>
+              <li
+                className="flex justify-between px-4 py-4"
+                key={ingredient.id}
+              >
+                <div className="flex border-gray-500">{ingredient.name}</div>
+                <RemoveIngredientButton
+                  userId={userId}
+                  ingredientId={ingredient.id}
+                />
               </li>
             ))
           ) : (

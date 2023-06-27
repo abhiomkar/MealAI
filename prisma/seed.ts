@@ -15,6 +15,9 @@ async function main() {
           {
             name: "Chicken",
           },
+          {
+            name: "Potato",
+          },
         ],
       },
     },

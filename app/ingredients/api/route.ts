@@ -4,20 +4,16 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-  const { ingredient, email } = await request.json();
-  const { id } = await prisma.user.findUniqueOrThrow({
-    where: {
-      email: email,
-    },
-    select: {
-      id: true,
-    },
-  });
+  const { ingredient, userId } = await request.json();
 
   await prisma.ingredient.create({
     data: {
       name: ingredient,
-      userId: id,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
     },
   });
 
