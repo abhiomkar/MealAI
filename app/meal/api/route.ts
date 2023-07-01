@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai-edge";
+import { Configuration, OpenAIApi } from "openai";
 import prisma from "@/app/prisma/prisma";
 
 const config = new Configuration({
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     stream: false,
   });
 
-  const res = await response.json();
-
-  return NextResponse.json({ message: res.choices[0].message.content });
+  return NextResponse.json({
+    message: response?.data?.choices[0].message?.content || "No response",
+  });
 }
