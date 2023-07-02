@@ -61,30 +61,19 @@ export default async function Home() {
               </div>
             </div>
           ) : (
-            "No ingredients found."
+            <div>
+              <span className="pr-2 text-sm">No ingredients found.</span>
+              <Link
+                className="pb inline-flex text-sm underline"
+                href="/ingredients"
+              >
+                Add ingredients
+              </Link>
+            </div>
           )}
         </div>
       </div>
       <MealPlanGenerator userId={userId} />
-      <div className="z-10 w-full max-w-xl items-center text-sm lg:flex">
-        <ul className="w-full px-4">
-          {weekPlan
-            ? weekPlan.map((meal) => (
-                <li className="flex gap-4 pb-4" key={meal.id}>
-                  <div className="mt-4 inline-flex h-8 w-8 flex-shrink-0 justify-center rounded-full bg-black pt-1 align-middle text-base font-medium text-white dark:bg-gray-50 dark:text-black">
-                    {meal.weekday[0]}
-                  </div>
-                  <div className="">
-                    <div className="flex pb-1 font-medium">
-                      {meal.ingredient}
-                    </div>{" "}
-                    {meal.description}
-                  </div>
-                </li>
-              ))
-            : null}
-        </ul>
-      </div>
     </main>
   );
 }

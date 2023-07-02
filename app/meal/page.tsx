@@ -84,7 +84,7 @@ export default async function Home() {
           {weekPlan
             ? weekPlan.map((meal) => (
                 <li className="flex gap-4 pb-4" key={meal.id}>
-                  <div className="mt-4 inline-flex h-8 w-8 flex-shrink-0 justify-center rounded-full bg-black pt-1 align-middle text-base font-medium text-white dark:bg-gray-50 dark:text-black">
+                  <div className="mt-4 inline-flex h-8 w-8 flex-shrink-0 justify-center rounded-full bg-black pt-1 align-middle text-base font-medium capitalize text-white dark:bg-gray-50 dark:text-black">
                     {meal.weekday[0]}
                   </div>
                   <div className="">
