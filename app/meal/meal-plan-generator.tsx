@@ -11,15 +11,21 @@ export function MealPlanGenerator({ userId }: { userId: number }) {
 
     setIsLoading(true);
     try {
+      const { ingredients } = await fetch(`/user/api/${userId}/ingredients`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => response.json());
+
       const response = await fetch("/meal/api", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId }),
-      });
-      const res = await response.json();
-      setMealPlan(res.message);
+        body: JSON.stringify({ ingredients }),
+      }).then((response) => response.json());
+      setMealPlan(response.message);
     } catch (error) {
       console.error(error);
     } finally {
