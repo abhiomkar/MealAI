@@ -46,39 +46,26 @@ export default async function Home() {
         <div className="p-4 text-sm font-medium">Hello, {name}!</div>
       </div>
       <div className="w-full max-w-xl px-4 py-8">
-        <h3 className="pb-4 text-2xl font-extrabold">Meal plan</h3>
+        <h3 className="pb-4 text-2xl font-extrabold">Create meal plan</h3>
         <div>
           {ingredients && ingredients.length > 0 ? (
             <div>
-              <div className="inline-flex pr-2 text-sm font-semibold">
+              <div className="inline-flex pb-1 pr-2 text-sm font-semibold">
                 Ingredients selected:
               </div>
-              <div className="inline-flex pr-2 text-sm">
+              <div className="inline-flex text-sm">
                 {ingredients
                   .map((ingredient: Ingredient) => ingredient.name)
                   .join(", ")}
                 .
               </div>
-              <Link
-                className="inline-flex text-sm underline"
-                href="/ingredients"
-              >
-                Edit
-              </Link>
             </div>
           ) : (
-            <div>
-              <span className="pr-2 text-sm">No ingredients found.</span>
-              <Link
-                className="pb inline-flex text-sm underline"
-                href="/ingredients"
-              >
-                Add ingredients
-              </Link>
-            </div>
+            "No ingredients found."
           )}
         </div>
       </div>
+      <MealPlanGenerator userId={userId} />
       <div className="z-10 w-full max-w-xl items-center text-sm lg:flex">
         <ul className="w-full px-4">
           {weekPlan
@@ -98,12 +85,6 @@ export default async function Home() {
             : null}
         </ul>
       </div>
-      <Link
-        href="/meal/create"
-        className="my-6 rounded-full border bg-white px-8 py-2 font-medium tracking-tighter text-black active:bg-gray-800 disabled:pointer-events-none disabled:opacity-80"
-      >
-        Create meal plan
-      </Link>
     </main>
   );
 }
