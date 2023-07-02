@@ -2,8 +2,14 @@
 
 import React, { useState } from "react";
 
+interface MealPlan {
+  weekday: string;
+  ingredient: string;
+  description: string;
+}
+
 export function MealPlanGenerator({ userId }: { userId: number }) {
-  const [mealPlan, setMealPlan] = useState<string>("");
+  const [mealPlan, setMealPlan] = useState<MealPlan[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const generateMealPlan = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,7 +31,7 @@ export function MealPlanGenerator({ userId }: { userId: number }) {
         },
         body: JSON.stringify({ ingredients }),
       }).then((response) => response.json());
-      setMealPlan(response.message);
+      setMealPlan(response.mealPlan);
     } catch (error) {
       console.error(error);
     } finally {
@@ -42,11 +48,26 @@ export function MealPlanGenerator({ userId }: { userId: number }) {
       >
         {isLoading ? "Generating meal plan..." : "Generate meal plan"}
       </button>
-      <div className="mt-4 grid grid-cols-1 gap-2">
-        {mealPlan.split("\n").map((line) => (
-          <div key={line}>{line}</div>
-        ))}
+      <div className="z-10 w-full max-w-xl items-center text-sm lg:flex">
+        <ul className="w-full px-4">
+          {mealPlan.length ? (
+            mealPlan.map((meal) => (
+              <li className="flex gap-4 pb-4" key={meal.weekday}>
+                <div className="mt-4 inline-flex h-8 w-8 flex-shrink-0 justify-center rounded-full bg-black pt-1 align-middle text-base font-medium capitalize text-white dark:bg-gray-50 dark:text-black">
+                  {meal.weekday[0]}
+                </div>
+                <div className="">
+                  <div className="flex pb-1 font-medium">{meal.ingredient}</div>{" "}
+                  {meal.description}
+                </div>
+              </li>
+            ))
+          ) : (
+            <div>No meal plans found.</div>
+          )}
+        </ul>
       </div>
+
       {mealPlan && (
         <button
           type="submit"
