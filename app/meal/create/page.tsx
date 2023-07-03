@@ -59,6 +59,12 @@ export default async function Home() {
                   .join(", ")}
                 .
               </div>
+              <Link
+                className="inline-flex pt-2 text-sm underline"
+                href="/ingredients"
+              >
+                Edit
+              </Link>
             </div>
           ) : (
             <div>
@@ -74,6 +80,7 @@ export default async function Home() {
         </div>
       </div>
       <MealPlanGenerator userId={userId} />
+      <div className="flex w-full py-8"></div>
     </main>
   );
 }

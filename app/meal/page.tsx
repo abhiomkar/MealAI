@@ -51,7 +51,7 @@ export default async function Home() {
           {ingredients && ingredients.length > 0 ? (
             <div>
               <div className="inline-flex pr-2 text-sm font-semibold">
-                Ingredients selected:
+                Ingredients considered:
               </div>
               <div className="inline-flex pr-2 text-sm">
                 {ingredients
@@ -60,7 +60,7 @@ export default async function Home() {
                 .
               </div>
               <Link
-                className="inline-flex text-sm underline"
+                className="inline-flex pt-2 text-sm underline"
                 href="/ingredients"
               >
                 Edit

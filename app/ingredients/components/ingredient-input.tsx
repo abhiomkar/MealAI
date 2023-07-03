@@ -18,10 +18,9 @@ export function IngredientInput({ userId }: { userId: number }) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!(event.target instanceof HTMLInputElement)) return;
-    if (!event.target) return;
+    if (!(event.target instanceof HTMLFormElement)) return;
 
-    submitForm(event.target.form!);
+    submitForm(event.target);
   };
 
   const submitForm = async (form: HTMLFormElement) => {
@@ -49,7 +48,10 @@ export function IngredientInput({ userId }: { userId: number }) {
           placeholder="Add ingredient"
           onKeyDown={handleIngredientInputKeyDown}
         />
-        <button className="absolute right-1 box-border h-10 rounded-full bg-white px-6 py-2 font-medium text-gray-500">
+        <button
+          type="submit"
+          className="absolute right-1 box-border h-10 rounded-full bg-white px-6 py-2 font-medium text-gray-500"
+        >
           Add
         </button>
       </div>
