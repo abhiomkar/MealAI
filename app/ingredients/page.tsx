@@ -25,7 +25,7 @@ export default async function Home() {
   }
 
   const user = await getUserMealPlans(email);
-  const userId = user?.id || 0;
+  const userId = user?.id || "";
   const ingredients = user?.ingredients || [];
 
   return (

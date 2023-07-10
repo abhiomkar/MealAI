@@ -33,8 +33,7 @@ export default async function Home() {
   }
 
   const user = await getUserMealPlans(email);
-  const userId = user?.id || 0;
-  const weekPlan = user?.mealPlans?.[0]?.weekPlan;
+  const userId = user?.id || "";
   const ingredients = user?.ingredients;
 
   return (
@@ -60,7 +59,7 @@ export default async function Home() {
                 .
               </div>
               <Link
-                className="inline-flex pt-2 text-sm underline"
+                className="inline-flex pl-2 pt-2 text-sm underline"
                 href="/ingredients"
               >
                 Edit

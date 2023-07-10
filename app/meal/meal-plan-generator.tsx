@@ -3,15 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { GhostLoading } from "./components/ghost-loading";
 import { useRouter } from "next/navigation";
+import { MealDayPlan } from "@prisma/client";
 
-interface MealPlan {
-  weekday: string;
-  ingredient: string;
-  description: string;
-}
-
-export function MealPlanGenerator({ userId }: { userId: number }) {
-  const [mealPlan, setMealPlan] = useState<MealPlan[]>([]);
+export function MealPlanGenerator({ userId }: { userId: string }) {
+  const [mealPlan, setMealPlan] = useState<Partial<MealDayPlan>[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const router = useRouter();
 
@@ -69,7 +64,7 @@ export function MealPlanGenerator({ userId }: { userId: number }) {
             mealPlan.map((meal) => (
               <li className="flex gap-4 pb-4" key={meal.weekday}>
                 <div className="mt-4 inline-flex h-8 w-8 flex-shrink-0 justify-center rounded-full bg-black pt-1 align-middle text-base font-medium capitalize text-white dark:bg-gray-50 dark:text-black">
-                  {meal.weekday[0]}
+                  {meal.weekday![0]}
                 </div>
                 <div className="">
                   <div className="flex pb-1 font-medium">{meal.ingredient}</div>{" "}

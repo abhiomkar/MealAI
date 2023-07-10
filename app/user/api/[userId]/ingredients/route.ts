@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { ingredients } = await prisma.user.findUniqueOrThrow({
     where: {
-      id: parseInt(params.userId, 10),
+      id: params.userId,
     },
     include: {
       ingredients: true,

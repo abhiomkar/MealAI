@@ -6,10 +6,10 @@ export async function DELETE(
   { params }: { params: { userId: string; ingredientId: string } }
 ) {
   await prisma.user.update({
-    where: { id: parseInt(params.userId, 10) },
+    where: { id: params.userId },
     data: {
       ingredients: {
-        disconnect: { id: parseInt(params.ingredientId, 10) },
+        disconnect: { id: params.ingredientId },
       },
     },
   });

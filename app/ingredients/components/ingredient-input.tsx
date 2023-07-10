@@ -3,18 +3,8 @@
 import { useRouter } from "next/navigation";
 import { KeyboardEvent } from "react";
 
-export function IngredientInput({ userId }: { userId: number }) {
+export function IngredientInput({ userId }: { userId: string }) {
   const router = useRouter();
-
-  const handleIngredientInputKeyDown = (
-    event: KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (!(event.target instanceof HTMLInputElement)) return;
-
-    if (event.key === "Enter") {
-      submitForm(event.target.form!);
-    }
-  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,7 +36,6 @@ export function IngredientInput({ userId }: { userId: number }) {
           className="box-border h-full w-full rounded-full border border-gray-500 bg-inherit px-4 pl-4 pr-24 outline-1 outline-gray-800"
           name="ingredient"
           placeholder="Add ingredient"
-          onKeyDown={handleIngredientInputKeyDown}
         />
         <button
           type="submit"

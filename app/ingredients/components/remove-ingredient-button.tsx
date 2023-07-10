@@ -7,8 +7,8 @@ export function RemoveIngredientButton({
   ingredientId,
   userId,
 }: {
-  ingredientId: number;
-  userId: number;
+  ingredientId: string;
+  userId: string;
 }) {
   const router = useRouter();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

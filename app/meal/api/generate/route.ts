@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai-edge";
+import { MealDayPlan } from "@prisma/client";
 
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -7,12 +8,6 @@ const config = new Configuration({
 const openai = new OpenAIApi(config);
 
 export const runtime = "edge";
-
-interface MealPlan {
-  weekday: string;
-  ingredient: string;
-  description: string;
-}
 
 export async function POST(request: Request) {
   const { ingredients } = await request.json();
@@ -115,7 +110,7 @@ export async function POST(request: Request) {
     })
     .then((response) => response.json());
 
-  const mealPlan: MealPlan[] = [];
+  const mealPlan: Partial<MealDayPlan>[] = [];
   const weeekDays: string[] = [
     "monday",
     "tuesday",
