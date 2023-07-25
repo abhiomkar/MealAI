@@ -9,6 +9,7 @@
     "lint": "next lint",
     "prisma:push": "dotenv -e .env.local prisma db push",
     "prisma:studio": "dotenv -e .env.local prisma studio",
+    "prisma:migrate": "dotenv -e .env.local -- prisma migrate dev",
     "env": "vercel env pull .env.local",
     "preinstall": "npx only-allow pnpm"
   },

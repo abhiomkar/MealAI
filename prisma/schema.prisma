@@ -3,10 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL") // uses connection pooling
-  directUrl         = env("DIRECT_URL") // uses a direct connection
-  shadowDatabaseUrl = env("DIRECT_URL") // used for migrations
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // uses connection pooling
+  directUrl = env("DIRECT_URL") // uses a direct connection
+  // NOTE: DO NOT set shadowUrl to same url as directUrl. See https://github.com/prisma/prisma/issues/19234
 }
 
 model User {
@@ -16,6 +16,7 @@ model User {
   emailVerified DateTime?
   createdAt     DateTime     @default(now())
   image         String?
+  diet          String?
   accounts      Account[]
   sessions      Session[]
   ingredients   Ingredient[]
