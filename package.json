@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vercel env pull .env.local && prisma generate && next dev",
+    "dev": "next dev",
     "build": "prisma generate && dotenv -e .env.local prisma db push && next build",
-    "start": "pnpm build && next start",
+    "start": "next start",
     "lint": "next lint",
-    "dbPush": "dotenv -e .env.local prisma db push",
-    "dbStudio": "dotenv -e .env.local prisma studio",
+    "prisma:push": "dotenv -e .env.local prisma db push",
+    "prisma:studio": "dotenv -e .env.local prisma studio",
     "env": "vercel env pull .env.local",
     "preinstall": "npx only-allow pnpm"
   },
