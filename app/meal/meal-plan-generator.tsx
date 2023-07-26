@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { GhostLoading } from "./components/ghost-loading";
 import { useRouter } from "next/navigation";
 import { MealDayPlan } from "@prisma/client";
+import { Button } from "@/components/ui/button";
 
 export function MealPlanGenerator({ userId }: { userId: string }) {
   const [mealPlan, setMealPlan] = useState<Partial<MealDayPlan>[]>([]);
@@ -75,20 +76,16 @@ export function MealPlanGenerator({ userId }: { userId: string }) {
 
           {isLoading ? null : (
             <div className="flex justify-between pt-6">
-              <button
+              <Button
+                variant="outline"
                 onClick={generateMealPlan}
-                className="rounded-full border px-8 py-2 active:bg-gray-800 disabled:pointer-events-none disabled:opacity-80"
                 disabled={isLoading}
               >
                 Recreate
-              </button>
-              <button
-                type="submit"
-                className="rounded-full border bg-white px-8 py-2 text-black active:bg-gray-800 disabled:pointer-events-none disabled:opacity-80"
-                disabled={isLoading}
-              >
+              </Button>
+              <Button type="submit" disabled={isLoading}>
                 Save
-              </button>
+              </Button>
             </div>
           )}
         </ul>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   return (
@@ -16,14 +17,9 @@ export default async function Home() {
         <h2 className="lg::text-8xl pb-8 pt-2 text-3xl font-extrabold tracking-tighter md:text-5xl">
           Balanced meal for you.
         </h2>
-        <button>
-          <Link
-            className="custom-blur inline-flex w-full items-center justify-center rounded-xl bg-gray-800 px-6 py-3 text-center font-medium text-white duration-200 hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus-visible:outline-black focus-visible:ring-black md:w-auto lg:w-auto"
-            href="/meal"
-          >
-            Plan your meal &nbsp; &nbsp; →
-          </Link>
-        </button>
+        <Button asChild>
+          <Link href="/meal">Plan your meal &nbsp; &nbsp; →</Link>
+        </Button>
       </div>
     </main>
   );

@@ -1,9 +1,9 @@
-import { Ingredient, PrismaClient } from "@prisma/client";
+import { Ingredient } from "@prisma/client";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
-import { MealPlanGenerator } from "@/app/meal/meal-plan-generator";
 import prisma from "@/app/prisma/prisma";
+import { Button } from "@/components/ui/button";
 
 async function getUserMealPlans(email: string) {
   return prisma.user.findUnique({
@@ -58,12 +58,9 @@ export default async function Home() {
                   .join(", ")}
                 .
               </div>
-              <Link
-                className="inline-flex pl-2 pt-2 text-sm underline"
-                href="/ingredients"
-              >
-                Edit
-              </Link>
+              <Button variant="link" asChild>
+                <Link href="/ingredients">Edit</Link>
+              </Button>
             </div>
           ) : (
             <div>
@@ -97,12 +94,9 @@ export default async function Home() {
             : null}
         </ul>
       </div>
-      <Link
-        href="/meal/create"
-        className="my-6 rounded-full border bg-white px-8 py-2 font-medium tracking-tighter text-black active:bg-gray-800 disabled:pointer-events-none disabled:opacity-80"
-      >
-        Create meal plan
-      </Link>
+      <Button asChild>
+        <Link href="/meal/create">Create meal plan</Link>
+      </Button>
     </main>
   );
 }
