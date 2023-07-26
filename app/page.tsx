@@ -10,7 +10,7 @@ export default async function Home() {
           <Link href="/">Meal AI</Link>
         </h1>
       </div>
-      <div className="z-10 flex w-full max-w-xl flex-col items-center text-sm">
+      <div className="z-10 mb-12 flex w-full max-w-xl flex-col items-center text-sm">
         <div className="flex">
           <Image src="/meal.svg" width={400} height={400} alt="Food plate" />
         </div>
