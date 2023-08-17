@@ -1,15 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header/header";
 
 export default async function Home() {
   return (
     <main className="flex flex-col items-center">
-      <div className="flex w-full items-center justify-between">
-        <h1 className="p-4 text-base font-medium tracking-tighter">
-          <Link href="/">Meal AI</Link>
-        </h1>
-      </div>
+      <Header />
+
       <div className="z-10 mb-12 flex w-full max-w-xl flex-col items-center text-sm">
         <div className="flex">
           <Image src="/meal.svg" width={400} height={400} alt="Food plate" />

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { KeyboardEvent } from "react";
 
-export function IngredientInput({ userId }: { userId: string }) {
+export function IngredientInput({ userId }: { userId?: string }) {
   const router = useRouter();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +35,7 @@ export function IngredientInput({ userId }: { userId: string }) {
           type="text"
           className="box-border h-full w-full rounded-full border border-gray-500 bg-inherit px-4 pl-4 pr-24 outline-1 outline-gray-800"
           name="ingredient"
-          placeholder="Add ingredient"
+          placeholder="Chicken, Potato, etc"
         />
         <button
           type="submit"

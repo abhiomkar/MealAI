@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/auth-options";
 import prisma from "@/app/prisma/prisma";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header/header";
 
 async function getUserMealPlans(email: string) {
   return prisma.user.findUnique({
@@ -38,12 +39,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col items-center">
-      <div className="flex w-full items-center justify-between">
-        <h1 className="p-4 text-base font-medium tracking-tighter">
-          <Link href="/">Meal AI</Link>
-        </h1>
-        <div className="p-4 text-sm font-medium">Hello, {name}!</div>
-      </div>
+      <Header name={name} />
       <div className="w-full max-w-xl px-4 py-8">
         <h3 className="pb-4 text-2xl font-extrabold">Meal plan</h3>
         <div>

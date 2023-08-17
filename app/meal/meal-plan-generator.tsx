@@ -3,11 +3,17 @@
 import React, { useState, useEffect } from "react";
 import { GhostLoading } from "./components/ghost-loading";
 import { useRouter } from "next/navigation";
-import { MealDayPlan } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 
-export function MealPlanGenerator({ userId }: { userId: string }) {
-  const [mealPlan, setMealPlan] = useState<Partial<MealDayPlan>[]>([]);
+interface MealDayPlan {
+  weekday: string;
+  meals: string;
+  ingredientList: string;
+  ingredientNutritionFacts: string;
+}
+
+export function MealPlanGenerator({ userId }: { userId?: string }) {
+  const [mealPlan, setMealPlan] = useState<MealDayPlan[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const router = useRouter();
 
@@ -27,12 +33,25 @@ export function MealPlanGenerator({ userId }: { userId: string }) {
   const generateMealPlan = async () => {
     setIsLoading(true);
     try {
-      const { ingredients } = await fetch(`/user/api/${userId}/ingredients`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((response) => response.json());
+      const {
+        ingredients,
+        cuisine,
+        diet,
+        mealCourseCount,
+        breakfast,
+        lunch,
+        dinner,
+      } = await fetch(
+        userId
+          ? `/user/api/preference/${userId}`
+          : "/user/api/preference/current",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => response.json());
 
       const shuffledIngredients = ingredients.sort(() => 0.5 - Math.random());
       const response = await fetch("/meal/api/generate", {
@@ -40,7 +59,15 @@ export function MealPlanGenerator({ userId }: { userId: string }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ingredients: shuffledIngredients }),
+        body: JSON.stringify({
+          ingredients: shuffledIngredients,
+          cuisine,
+          diet,
+          mealCourseCount,
+          breakfast,
+          lunch,
+          dinner,
+        }),
       }).then((response) => response.json());
       setMealPlan(response.mealPlan);
     } catch (error) {
@@ -68,8 +95,13 @@ export function MealPlanGenerator({ userId }: { userId: string }) {
                   {meal.weekday![0]}
                 </div>
                 <div className="">
-                  <div className="flex pb-1 font-medium">{meal.ingredient}</div>{" "}
-                  {meal.description}
+                  <div className="flex pb-1 font-medium">{meal.meals}</div>
+                  <div className="flex pb-1 font-medium">
+                    {meal.ingredientList}
+                  </div>
+                  <div className="flex pb-1 font-medium">
+                    {meal.ingredientNutritionFacts}
+                  </div>
                 </div>
               </li>
             ))}
